@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# misc
+npm-debug.log
+.DS_Store
+*.pem
+
+# temp uploads
+/uploads
+
+# tests
+/coverage
+/.nyc_output
+
+# dist
+/dist
+
+# env
+.env
+.env.prod
