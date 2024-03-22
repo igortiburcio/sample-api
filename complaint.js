@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
-const serverUrl = process.env.SERVER_URL; // example: 'wss://backend.juridico.ai'
+const websocketServerUrl = process.env.WEBSOCKET_SERVER_URL; // example: 'wss://server.juridico.ai'
 
 // the channel to connect to
 const channel = "complaint";
@@ -11,7 +11,7 @@ const channel = "complaint";
 // base64 encode the clientId and clientSecret to generate the token to connect to the server
 const token = Buffer.from(clientId + ":" + clientSecret).toString("base64");
 console.log("token", token);
-const newSocket = io(serverUrl, {
+const newSocket = io(websocketServerUrl, {
   query: {
     token: token,
   },
@@ -53,6 +53,7 @@ const params = {
   facts: "O autor é pai da requerente e não tem cumprido com suas obrigações alimentares",
   theses: "A obrigação alimentar é devida pelo genitor que não detém a guarda do filho",
   proofs: "Certidão de nascimento da requerente",
+  preliminary: "Da necessidade de concessão do benefício de Justiça Gratuita",
 };
 
 const emitEvent = () => {

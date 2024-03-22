@@ -6,13 +6,17 @@
   "scripts": {
     "start": "node index.js",
     "complaint": "node complaint.js",
+    "complaint-automation": "node complaintWithFormAutomation.js",
     "defence": "node defence.js",
+    "defence-upload": "node defenceWithFileUpload.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.6.8",
     "dotenv": "^16.4.5",
+    "form-data": "^4.0.0",
     "socket.io-client": "^4.7.4"
   }
 }

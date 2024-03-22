@@ -1,16 +1,48 @@
 const io = require("socket.io-client");
+const FormData = require('form-data');
+const fs = require('fs');
+const axios = require('axios');
 require("dotenv").config();
+
+// Curl example: curl -X POST -H "Authorization: Bearer <YOUR_TOKEN>" -F "file=@/home/username/documents/peticao.pdf" -F "pdfType=complaint" http://localhost:3030/ai/summarizePdf
+// curl -X POST -H "Authorization: Bearer ZjA3ZjliYzI4MmNhMDBjNjY2OTQ0ZTYyMDMyYjljYWE6YzM0MGZlNGVlNzRjMDJlMDhhZjkwNDU4NjRjOTk5ZmFiZTkxMDdjZWVjOTQ1OTJkM2I3ZjU2MDc4ZTdkYmM4Yg==" -F "file=@/Users/barsmike/workspace/personal/juridico/juridico-integration-sample/peticao.pdf" -F "pdfType=complaint" http://localhost:3030/ai/summarizePdf
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const websocketServerUrl = process.env.WEBSOCKET_SERVER_URL; // example: 'wss://server.juridico.ai'
+const restServerUrl = process.env.REST_SERVER_URL; // example: 'https://server.juridico.ai'
 
 // the channel to connect to
 const channel = "defence";
+const pdfType = "complaint"; // internal name for the Complaint (or "Petição Inicial") pdf
 
 // base64 encode the clientId and clientSecret to generate the token to connect to the server
 const token = Buffer.from(clientId + ":" + clientSecret).toString("base64");
 console.log("token", token);
+
+async function updateParamsWithPdf(filePath) {
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath));
+  form.append('pdfType', pdfType);
+
+  try {
+    // POST with multipart/form-data
+    const response = await axios.post(`${restServerUrl}/ai/summarizePdf`, form, {
+      headers: {
+        // ...form.getHeaders(),
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const result = response.data;
+    console.log('Summary result:', result);
+
+    return result;
+  } catch (error) {
+    console.error('Error updating params with PDF summary:', error);
+  }
+}
+
 const newSocket = io(websocketServerUrl, {
   query: {
     token: token,
@@ -45,16 +77,7 @@ newSocket.on(channel, (data) => {
   }
 });
 // fields of a "defence" message (Contestação)
-const params = {
-  type: 'Ação de Obrigação de Fazer c/c Danos Morais',
-  value: 'R$ 25.000,00',
-  court: 'Juizado Especial Cível da Comarca de Barra do Piraí',
-  facts: 'A petição inicial apresentada pelo advogado José Nilton da Silva Junior em nome de sua cliente, Fernanda Malta da Silva, trata de uma ação de obrigação de fazer c/c danos morais em face da empresa Madeira Madeira Comércio Eletrônico S/A. A autora alega que realizou a compra de um guarda-roupa casal 6 portas 6 gavetas Stillus Tcil Móveis no valor de R$ 1.929,00, porém a empresa ré não entregou o produto no prazo estipulado. Além disso, a autora alega ter perdido um tempo útil considerável em busca de solução para o problema, tendo que abrir diversos protocolos e realizar diversos contatos telefônicos, todos sem sucesso.',
-  args: `
-    1. Positivação do tempo como bem jurídico relevante, com base nos artigos 186 e 927 do Código Civil e no Código de Defesa do Consumidor. O autor argumenta que o tempo é um bem inerente a todos os seres humanos, único, insubstituível e inalienável, e que a má prestação de um serviço pode causar lesão que vai além do simples aborrecimento do cotidiano, configurando dano moral.
-    2. Agressão inequívoca à livre disposição e uso do tempo livre, em favor do interesse econômico ou da mera conveniência negocial de um terceiro, com base nos princípios básicos do consumidor. O autor argumenta que as exigências da contemporaneidade têm confrontado situações de agressão ao tempo livre das pessoas, em detrimento de interesses econômicos, o que configura uma violação do direito à paz e à tranquilidade.
-    3. Responsabilidade do fornecedor, com base no Código de Defesa do Consumidor. O autor argumenta que a má prestação de um serviço, que resulta na perda do tempo útil do consumidor, configura uma violação dos direitos básicos do consumidor, exigindo a responsabilização do fornecedor.
-  `,
+const manualInputParams = {
   authorProofs: `
     1. Pedido de Justiça Gratuita
     2. Citação do réu para oferecer resposta
@@ -63,15 +86,6 @@ const params = {
     5. Concessão de Tutela de Urgência para entrega do guarda-roupa
     6. Pedido de indenização pelo tempo útil perdido
     7. Procedência da ação e condenação ao pagamento das custas e honorários advocatícios
-  `,
-  requests: `
-    a) Concessão dos benefícios da justiça gratuita
-    b) Citação do réu para oferecer resposta
-    c) Reconhecimento da relação de consumo e inversão do ônus da prova
-    d) Condenação da parte ré a pagar danos morais no montante justo não inferior a R$20.000,00
-    e) Concessão da Tutela de Urgência para determinar que a empresa Ré entregue o GUARDA-ROUPA CASAL 6 PORTAS 6 GAVETAS STILLUS TCIL MOVEIS
-    f) Condenação do réu a pagar indenização pelo tempo útil perdido da autora no valor de R$5.000,00
-    g) Procedência da ação e condenação ao pagamento das custas e honorários advocatícios no percentual de 20% sobre o valor da causa.
   `,
   theses: `
     1. **Ausência de Responsabilidade pelo Fato do Produto ou Serviço (Art. 14, § 3º, do CDC)**: Argumentar que a empresa não pode ser responsabilizada pelos danos alegados, pois o atraso na entrega pode ter sido causado por fatores externos, como problemas logísticos ou greves, que fogem ao controle da empresa. Isso se enquadra nas excludentes de responsabilidade previstas no Código de Defesa do Consumidor.
@@ -84,11 +98,17 @@ const params = {
 
     5. **Questionamento sobre a Concessão da Justiça Gratuita (Lei 1.060/50 e Art. 5º, LXXIV, da CF/88)**: Contestar o pedido de justiça gratuita apresentado pela autora, requerendo que seja demonstrada efetiva necessidade, uma vez que a concessão indevida poderia caracterizar litigância de má-fé, conforme previsto na legislação.
   `,
-  proofs: `Conversas do Whatsapp, Conversas por email, documentação da empresa`,
   preliminary: 'Falta de interessse processual',
 };
 
-const emitEvent = () => {
+const emitEvent = async () => {
+  const result = await updateParamsWithPdf(`${__dirname}/peticao.pdf`);
+  console.log('updateParamsWithPdfSummary result', result);
+  console.log('These are the only fields the user will have to input manually', manualInputParams);
+  const params = {
+    ...result,
+    ...manualInputParams,
+  };
   console.log("socket", newSocket);
   if (newSocket.connected) {
     console.log("Socket is connected, emitting the event");
