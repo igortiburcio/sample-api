@@ -79,7 +79,7 @@ newSocket.on(channel, (data) => {
 // fields of a "civilAppeal" message (Contestação)
 const manualInputParams = {
   representation: 'Autor',
-  args: '',
+  // optional args: '',
 };
 
 const emitEvent = async () => {

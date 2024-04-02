@@ -85,7 +85,7 @@ const manualInputParams = {
   advocatícios.`,
   
   representation: 'Autor',
-  args: '',
+  // optional args: '',
 };
 
 const emitEvent = async () => {

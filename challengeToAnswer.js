@@ -67,8 +67,6 @@ const params = {
   sem causa. O réu requer a improcedência dos pedidos do autor, bem como a produção de provas adicionais e a
   análise crítica das provas apresentadas pelo autor.`,
 
-  preliminary: `Falta de Interesse Processual`,
-
   complaintArgs: `A petição inicial apresenta a ação de indenização por danos materiais e morais movida pelo
   autor contra o réu, alegando negligência deste em um acidente de trânsito. O autor fundamenta sua demanda
   nos artigos 186 e 927 do Código Civil, argumentando que o réu violou direitos e causou danos materiais e

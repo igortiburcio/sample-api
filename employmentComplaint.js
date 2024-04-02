@@ -48,13 +48,10 @@ newSocket.on(channel, (data) => {
 
 // fields of a "complaint" message (Petição inicial)
 const params = {
-  type: "Ação de Trabalhista",
-  value: "R$ 20.000,00",
-  court: "1ª Vara do Trabalho da Comarca de São Paulo",
   facts: "O autor foi demitido injustamente por causa de boatos espúrios.",
   theses: "É devida reintegração ao cargo.",
-  proofs: "Testemunha do Fato",
-  preliminary: "Da necessidade de concessão do benefício de Justiça Gratuita",
+  // optional proofs: "Testemunha do Fato",
+  // optional preliminary: "Da necessidade de concessão do benefício de Justiça Gratuita",
 };
 
 const emitEvent = () => {

@@ -62,7 +62,7 @@ const params = {
   Portanto, o pedido é indeferido, e o autor deve pagar as custas processuais e honorários advocatícios em 15 dias, sob pena de cancelamento da distribuição do processo.`,
 
   representation: 'Autor',
-  args: '',
+  // optional args: '',
 };
 
 const emitEvent = () => {

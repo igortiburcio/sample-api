@@ -63,7 +63,7 @@ const params = {
   A lide deve ser resolvida à luz da Lei 8906/94.`,
   
   representation: 'Autor',
-  args: '',
+  // optional args: '',
 };
 
 const emitEvent = () => {

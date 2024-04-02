@@ -77,10 +77,6 @@ newSocket.on(channel, (data) => {
     console.log("Final response:", finalResponse);
   }
 });
-// fields of a "challengeToAnswer" message (Réplica)
-const manualInputParams = {
-  preliminary: '',
-};
 
 const emitEvent = async () => {
   const defenceResult = await updateParamsWithPdf(`${__dirname}/peças/contestacao.pdf`, pdfOneType);
@@ -92,7 +88,6 @@ const emitEvent = async () => {
   const params = {
     ...defenceResult,
     ...complaintResult,
-    ...manualInputParams,
   };
 
   console.log("socket", newSocket);
