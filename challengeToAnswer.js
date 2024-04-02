@@ -49,62 +49,37 @@ newSocket.on(channel, (data) => {
 
 // fields of a "challenge to answer" message (Réplica)
 const params = {
-  summary: `Trata-se de ação de obrigação de fazer c/c danos morais movida por Fernanda Malta da
-  Silva em face da empresa Madeira Madeira Comércio Eletrônico S/A, na qual a autora alega
-  ter adquirido um guarda-roupa casal que não foi entregue no prazo estipulado, apesar de
-  diversos agendamentos e reclamações. A autora narra que, devido à não entrega do produto,
-  teve que armazenar suas roupas de forma improvisada, o que lhe causou transtornos e
-  constrangimentos, além de já ter efetuado o pagamento da segunda parcela do produto sem poder usufruir do mesmo.
-  A petição inicial enfatiza a responsabilidade do fornecedor em
-  cumprir com suas obrigações e evitar abusos contra os consumidores, invocando o Código
-  Civil, nos artigos 186 e 927, e o Código de Defesa do Consumidor, especialmente o artigo 6º,
-  para fundamentar os pedidos de indenização por danos morais e a entrega do guarda-roupa.
-  Na tentativa de alcançar sua pretensão, a parte autora traz à demanda as seguintes provas:
-  MENCIONAR PROVAS.
-  A presente Contestação visa, portanto, refutar os argumentos apresentados pela parte
-  autora, trazendo à tona a realidade dos fatos. Será demonstrado que as alegações da autora
-  quanto aos danos morais e à responsabilidade civil da empresa ré necessitam de uma análise
-  criteriosa sob a ótica da legislação aplicável, considerando os princípios que regem as
-  relações de consumo, a existência de esforços para solucionar o impasse e a
-  proporcionalidade das indenizações pleiteadas.
-  É a breve síntese do necessário.`,
+  summary: `O processo refere-se a uma ação de indenização por danos materiais e morais movida pelo autor contra
+  o réu após um acidente de trânsito. O autor alega que foi atingido na traseira de seu veículo pelo réu, que
+  teria agido com negligência. O autor tentou resolver a situação de forma amigável, sem sucesso, e agora busca
+  reparação judicial. O réu contesta as alegações do autor, argumentando que a responsabilidade civil pode ser
+  excluída em casos de culpa exclusiva da vítima ou de terceiros e questionando a existência de um nexo causal
+  direto entre sua conduta e os danos alegados. O réu também destaca a possibilidade de redução proporcional da
+  indenização em caso de culpa concorrente da vítima e a necessidade de moderação na quantificação dos danos morais.`,
 
-  args: 'Tutela antecipada para a entregar o Guarda-Roupa, Dano Moral em face do atraso, inversão do onus dda prova.',
+  args: `Já a contestação elaborada pelo réu refuta os argumentos do autor, destacando a possibilidade
+  de exclusão da responsabilidade civil do réu em casos de culpa exclusiva da vítima ou de terceiro,
+  conforme o artigo 927 do Código Civil. Além disso, questiona a existência de um nexo causal direto
+  entre a conduta do réu e os danos alegados pelo autor, ressaltando a necessidade de uma análise criteriosa
+  das provas apresentadas. Também argumenta sobre a redução proporcional da indenização em caso de culpa
+  concorrente da vítima e a limitação da indenização aos danos efetivamente comprovados.
+  Por fim, destaca a necessidade de moderação na quantificação dos danos morais para evitar enriquecimento
+  sem causa. O réu requer a improcedência dos pedidos do autor, bem como a produção de provas adicionais e a
+  análise crítica das provas apresentadas pelo autor.`,
 
   preliminary: `Falta de Interesse Processual`,
 
-  complaintArgs: `Responsabilidade do fornecedor em
-  cumprir com suas obrigações e evitar abusos contra os consumidores, invocando o Código
-  Civil, nos artigos 186 e 927, e o Código de Defesa do Consumidor, especialmente o artigo 6º,
-  para fundamentar os pedidos de indenização por danos morais e a entrega do guarda-roupa.`,
+  complaintArgs: `A petição inicial apresenta a ação de indenização por danos materiais e morais movida pelo
+  autor contra o réu, alegando negligência deste em um acidente de trânsito. O autor fundamenta sua demanda
+  nos artigos 186 e 927 do Código Civil, argumentando que o réu violou direitos e causou danos materiais e
+  morais. São mencionadas diversas provas apresentadas, como boletim de ocorrência, laudo pericial e registros médicos.`,
 
-  requests: `a) Sejam concedidos os benefícios da  JUSTIÇA   GRATUITA, nos
-  termos do artigo 98 do CPC, sendo certo que a autora não possui
-  condições financeiras de arcar com despesas processuais e demais
-  cominações de lei sem prejuízo do seu próprio sustento e dos seus
-  dependentes, conforme declaração anexa;
-  b) A Citação do réu, para que, querendo, ofereça resposta no prazo
-  legal, sob pena de sujeitar-se aos efeitos da revelia;
-  c) Reconhecimento da relação de consumo e inversão do ônus da
-  prova, nos termos do art. 6º, VIII e 42, § único do Código de Defesa
-  de Consumidor;
-  d) Condenação da parte ré a pagar os danos morais no montante
-  justo não inferior a R$20.000,00 (vinte mil reais);
-  e) Requer que seja concedida a Tutela de Urgência para determinar
-  que a empresa Ré entregue o GUARDA-ROUPA CASAL 6 PORTAS
-  6 GAVETAS STILLUS TCIL MOVEIS referente ao número de pedido
-  #24795166, valor de R$ 1.929,00 (mil novecentos e vinte nove reais)
-  no prazo máximo de 5 (cinco) dias sob pena de multa fixada por
-  V.Exelência.
-  f) REQUER seja o réu condenado a título de indenização pelo tempo
-  útil perdido da autora, a pagar a quantia de R$ 5.000,00 (cinco mil
-  reais) pois, assim se sentirá compensado pelo tempo dispensado e
-  perdid 
-  g) A procedência da presente ação confirmando a tutela de urgência,
-  e   ainda   em   caso   de   recurso,   e   requer   que   seja   condenado   ao
-  pagamento das custas e honorários advocatícios no percentual de
-  20% sobre o valor da causa devidamente corrigido e com incidência
-  de juros legais.`,
+  requests: `1. Condenação do réu ao pagamento de indenização por danos materiais, correspondentes aos prejuízos sofridos pelo autor com o conserto do veículo, bem como quaisquer outros gastos diretamente relacionados ao acidente.
+  2. Condenação do réu ao pagamento de indenização por danos morais, em virtude dos transtornos, dores e sofrimentos físicos e psicológicos experimentados pelo autor em decorrência do acidente.
+  3. Condenação do réu ao pagamento de indenização por danos estéticos, se aplicável, considerando as lesões permanentes ou marcas resultantes do acidente.
+  4. Citação do réu para, querendo, contestar a presente ação, sob pena de revelia e confissão quanto à matéria de fato.
+  5. Condenação do réu ao pagamento dos honorários advocatícios, fixados em percentual a ser determinado por este juízo, sobre o valor da condenação.
+  6. Produção de todas as provas em direito admitidas, especialmente a documental, testemunhal, pericial e depoimento pessoal do réu, para comprovação do alegado.`,
 };
 
 const emitEvent = () => {

@@ -83,7 +83,7 @@ const manualInputParams = {
 };
 
 const emitEvent = async () => {
-  const defenceResult = await updateParamsWithPdf(`${__dirname}/peças/contestação.pdf`, pdfOneType);
+  const defenceResult = await updateParamsWithPdf(`${__dirname}/peças/contestacao.pdf`, pdfOneType);
   const complaintResult = await updateParamsWithPdf(`${__dirname}/peças/inicial.pdf`, pdfTwoType);
 
   console.log('updateParamsWithPdfSummary result', defenceResult, complaintResult);
