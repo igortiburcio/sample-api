@@ -13,9 +13,9 @@ const websocketServerUrl = process.env.WEBSOCKET_SERVER_URL; // example: 'wss://
 const restServerUrl = process.env.REST_SERVER_URL; // example: 'https://server.juridico.ai'
 
 // the channel to connect to
-const channel = "challenge-to-answer";
-const pdfOneType = "defence"; // internal name for the Defence pdf
-const pdfTwoType = "challengeComplaint"
+const channel = "grounds-of-appeal";
+const pdfOneType = "groundOfAppealSentence"; // internal name for the Defence pdf
+const pdfTwoType = "groundOfAppealDoc"
 
 // base64 encode the clientId and clientSecret to generate the token to connect to the server
 const token = Buffer.from(clientId + ":" + clientSecret).toString("base64");
@@ -79,15 +79,14 @@ newSocket.on(channel, (data) => {
 });
 
 const emitEvent = async () => {
-  const defenceResult = await updateParamsWithPdf(`${__dirname}/peças/contestacao.pdf`, pdfOneType);
-  const complaintResult = await updateParamsWithPdf(`${__dirname}/peças/inicial.pdf`, pdfTwoType);
+  const sentenceResult = await updateParamsWithPdf(`${__dirname}/peças/sentença.pdf`, pdfOneType);
+  const appealResult = await updateParamsWithPdf(`${__dirname}/peças/appeal.pdf`, pdfTwoType);
 
-  console.log('updateParamsWithPdfSummary result', defenceResult, complaintResult);
-  console.log('These are the only fields the user will have to input manually');
+  console.log('updateParamsWithPdfSummary result', sentenceResult, appealResult);
 
   const params = {
-    ...defenceResult,
-    ...complaintResult,
+    ...sentenceResult,
+    ...appealResult,
   };
 
   console.log("socket", newSocket);
